@@ -1,14 +1,15 @@
-import { Accessibility, Bed, Bell, BusFront, CalendarDays, Car, ClipboardList, Droplets, HeartHandshake, HeartPulse, Map, MapPin, Megaphone, Mic, Navigation, Phone, Search, Send, Share2, Siren, Soup, Stethoscope, Users, Waves, type LucideIcon } from 'lucide-react'
+import { Accessibility, Bed, Download, Radar, Bell, BusFront, CalendarDays, Car, ClipboardList, Droplets, HeartHandshake, HeartPulse, Map, MapPin, Megaphone, Mic, Navigation, Phone, Send, Share2, Siren, Soup, Stethoscope, Users, Waves, type LucideIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { CHAT_QA, FOOD, LOTS, ROADS, SERVICES, SNAN, STAYS } from '../data'
 import { useApp } from '../store'
-import { AppBar, MiniMap, Meter, Ring, sev, sevLabel, fmt } from '../ui'
+import { CrowdRoute, Group, Offline } from '../features'
+import { AppBar, Meter, Ring, sev, sevLabel, fmt } from '../ui'
 
 interface Tile { k: string; icon: LucideIcon; c: string }
 const GROUPS: { title: string; tiles: Tile[] }[] = [
-  { title: 'Plan & navigate', tiles: [{ k: 'plan', icon: CalendarDays, c: '#a78bfa' }, { k: 'route', icon: Map, c: '#60a5fa' }, { k: 'crowd', icon: Waves, c: '#2dd4bf' }, { k: 'snan', icon: Bell, c: '#fbbf24' }] },
+  { title: 'Plan & navigate', tiles: [{ k: 'plan', icon: CalendarDays, c: '#a78bfa' }, { k: 'offline', icon: Download, c: '#38bdf8' }, { k: 'route', icon: Map, c: '#60a5fa' }, { k: 'crowd', icon: Waves, c: '#2dd4bf' }, { k: 'snan', icon: Bell, c: '#fbbf24' }] },
   { title: 'Stay, eat & move', tiles: [{ k: 'stay', icon: Bed, c: '#f472b6' }, { k: 'food', icon: Soup, c: '#ff8a3d' }, { k: 'water', icon: Droplets, c: '#38bdf8' }, { k: 'park', icon: Car, c: '#818cf8' }, { k: 'around', icon: BusFront, c: '#34d399' }, { k: 'services', icon: MapPin, c: '#fb923c' }] },
-  { title: 'Care & community', tiles: [{ k: 'lost', icon: Users, c: '#fb7185' }, { k: 'health', icon: HeartPulse, c: '#f87171' }, { k: 'access', icon: Accessibility, c: '#a3e635' }, { k: 'donate', icon: HeartHandshake, c: '#f59e0b' }, { k: 'community', icon: Megaphone, c: '#22d3ee' }, { k: 'track', icon: ClipboardList, c: '#c084fc' }] },
+  { title: 'Care & community', tiles: [{ k: 'group', icon: Radar, c: '#34d399' }, { k: 'lost', icon: Users, c: '#fb7185' }, { k: 'health', icon: HeartPulse, c: '#f87171' }, { k: 'access', icon: Accessibility, c: '#a3e635' }, { k: 'donate', icon: HeartHandshake, c: '#f59e0b' }, { k: 'community', icon: Megaphone, c: '#22d3ee' }, { k: 'track', icon: ClipboardList, c: '#c084fc' }] },
 ]
 
 export function Pilgrim() {
@@ -79,7 +80,7 @@ function Sos({ onClick }: { onClick?: () => void }) {
 
 function View({ k }: { k: string }) {
   const V: Record<string, () => React.ReactNode> = {
-    plan: Plan, route: Route, crowd: Crowd, stay: Stay, food: Food, water: Water, park: Park, around: Around, services: Services,
+    plan: Plan, route: CrowdRoute, group: Group, offline: Offline, crowd: Crowd, stay: Stay, food: Food, water: Water, park: Park, around: Around, services: Services,
     snan: Snan, lost: Lost, health: Health, access: Access, donate: Donate, community: Community, report: Report, track: Track, sahayak: Sahayak,
   }
   const C = V[k]
@@ -99,24 +100,6 @@ function Plan() {
     <div className="glass card">{[['Ganga Aarti · Har Ki Pauri', 'Daily at dawn & sunset (~6:45 PM)'], ['Mansa Devi Temple', 'Hilltop shrine · ropeway'], ['Chandi Devi Temple', 'Neel Parvat · ropeway'], ['Maya Devi Temple', 'Ancient Shakti Peeth'], ['Daksha Mahadev · Kankhal', 'Historic Shiva temple']].map(([a, b]) => <div className="kv" key={a}><span>{a}</span><span className="muted" style={{ fontWeight: 400 }}>{b}</span></div>)}</div>
     <div className="sec">What to carry · {Object.values(done).filter(Boolean).length}/{items.length}</div>
     <div className="glass card">{items.map((x, i) => <label className="check" key={x}><input type="checkbox" checked={!!done[i]} onChange={e => setDone({ ...done, [i]: e.target.checked })} />{x}</label>)}</div>
-  </>)
-}
-
-function Route() {
-  const { mela, zone, ghats, say } = useApp()
-  const h = ghats[0]
-  return (<>
-    <MiniMap />
-    <div className="glass card">
-      <div className="kv"><span>Ghat</span><span>G-HKP · {mela.ghat}</span></div>
-      <div className="kv"><span>Zone</span><span>{zone} (Z-01)</span></div>
-      <div className="kv"><span>Control post</span><span>Control Post 1</span></div>
-      <div className="kv"><span>Facilities</span><span>Ramp · Changing room · Water · First aid · L&F</span></div>
-      <div className="kv"><span>Crowd now</span><span style={{ color: sev(h.pct) }}>{h.pct}% · {sevLabel(h.pct)}</span></div>
-      <div className="kv"><span>Calmer window</span><span>after 10:30 AM</span></div>
-    </div>
-    <div className="row"><button className="btn primary grow" onClick={() => say('Navigation started')}><Navigation size={18} /> Navigate</button><button className="btn ghost grow" onClick={() => say('Link copied')}><Share2 size={18} /> Share</button></div>
-    <button className="btn ghost block" onClick={() => say('Searching ghats…')}><Search size={18} /> Find a different ghat</button>
   </>)
 }
 

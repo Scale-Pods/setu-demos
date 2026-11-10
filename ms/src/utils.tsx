@@ -17,3 +17,27 @@ export function QR({ seed, size = '100%' }: { seed: string; size?: string }) {
   const finder = (ox: number, oy: number) => (<g key={ox + '_' + oy}><rect x={ox} y={oy} width="7" height="7" /><rect x={ox + 1} y={oy + 1} width="5" height="5" fill="#fff" /><rect x={ox + 2} y={oy + 2} width="3" height="3" /></g>)
   return <svg viewBox="0 0 25 25" width={size} height={size} fill="#12102e" shapeRendering="crispEdges" role="img" aria-label="QR code">{cells}{finder(0, 0)}{finder(18, 0)}{finder(0, 18)}</svg>
 }
+
+/* ---- speech (browser built-ins; graceful fallback when unsupported) ---- */
+const SPEECH_LANG: Record<string, string> = { en: 'en-IN', hi: 'hi-IN', mr: 'mr-IN', pa: 'pa-IN' }
+export const canSpeak = () => typeof window !== 'undefined' && 'speechSynthesis' in window
+export function speak(text: string, lang: string) {
+  if (!canSpeak()) return
+  try {
+    window.speechSynthesis.cancel()
+    const u = new SpeechSynthesisUtterance(text); u.lang = SPEECH_LANG[lang] ?? 'en-IN'; u.rate = 0.95
+    window.speechSynthesis.speak(u)
+  } catch { /* ignore */ }
+}
+export function stopSpeaking() { try { window.speechSynthesis?.cancel() } catch { /* ignore */ } }
+type Rec = { lang: string; interimResults: boolean; onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null; onend: (() => void) | null; onerror: (() => void) | null; start: () => void; stop: () => void }
+const RecCtor = (): (new () => Rec) | null => { const w = window as unknown as Record<string, unknown>; return (w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null) as (new () => Rec) | null }
+export const canListen = () => typeof window !== 'undefined' && !!RecCtor()
+export function listen(lang: string, onText: (t: string) => void, onEnd: () => void): (() => void) | null {
+  const C = RecCtor(); if (!C) return null
+  const r = new C(); r.lang = SPEECH_LANG[lang] ?? 'en-IN'; r.interimResults = false
+  r.onresult = e => { const t = e.results[0]?.[0]?.transcript; if (t) onText(t) }
+  r.onend = onEnd; r.onerror = onEnd
+  try { r.start() } catch { onEnd(); return null }
+  return () => { try { r.stop() } catch { /* ignore */ } }
+}

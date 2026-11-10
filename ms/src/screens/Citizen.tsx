@@ -1,15 +1,16 @@
-import { Accessibility, BadgeCheck, CalendarDays, ClipboardCheck, Clock, FileSearch, Headphones, Mic, Navigation, Phone, Search, Send, Share2, ShieldAlert, Siren, Timer, TrendingUp, UserSearch, Vote, type LucideIcon } from 'lucide-react'
+import { Accessibility, BadgeCheck, Volume2, VolumeX, FilePenLine, CalendarDays, ClipboardCheck, Clock, FileSearch, Headphones, Mic, Navigation, Phone, Search, Send, Share2, ShieldAlert, Siren, Timer, TrendingUp, UserSearch, Vote, type LucideIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { BestTime, Register, regPreset } from '../features'
 import { CAL, DOCS, DONTS, FIRST, GCATS, STEPS5, TILES, type Cand, type Voter } from '../data'
 import { useApp } from '../store'
 import { AppBar, MapSVG, Meter, Timeline } from '../ui'
-import { inFmt, qColor } from '../utils'
+import { canListen, canSpeak, inFmt, listen, qColor, speak, stopSpeaking } from '../utils'
 
 const ICONS: Record<string, [LucideIcon, string]> = {
-  booth: [Navigation, '#ff9933'], queue: [Timer, '#60a5fa'], enroll: [FileSearch, '#34d399'], candidate: [UserSearch, '#a78bfa'], prep: [ClipboardCheck, '#fbbf24'], calendar: [CalendarDays, '#f472b6'],
+  register: [FilePenLine, '#22d3ee'], booth: [Navigation, '#ff9933'], queue: [Timer, '#60a5fa'], enroll: [FileSearch, '#34d399'], candidate: [UserSearch, '#a78bfa'], prep: [ClipboardCheck, '#fbbf24'], calendar: [CalendarDays, '#f472b6'],
   access: [Accessibility, '#2dd4bf'], report: [Siren, '#fb7185'], track: [Clock, '#c084fc'], helpline: [Phone, '#38bdf8'], results: [TrendingUp, '#fb923c'], help: [Headphones, '#ff9933'],
 }
-const GROUPS: [string, string[]][] = [['Plan', ['booth', 'enroll', 'candidate', 'prep', 'calendar']], ['Vote', ['queue', 'results', 'access']], ['Help & report', ['report', 'track', 'helpline']]]
+const GROUPS: [string, string[]][] = [['Plan', ['booth', 'register', 'enroll', 'candidate', 'prep', 'calendar']], ['Vote', ['queue', 'results', 'access']], ['Help & report', ['report', 'track', 'helpline']]]
 
 export function Citizen() {
   const { journey, setJourney, tile, ui, me, acd, go, lang, booth } = useApp()
@@ -33,7 +34,7 @@ export function Citizen() {
 }
 
 function Journey({ k }: { k: string }) {
-  const M: Record<string, () => React.ReactNode> = { booth: Booth, queue: Queue, enroll: Enroll, candidate: Candidate, prep: Prep, calendar: Calendar, access: Access, report: Report, track: Track, helpline: Helpline, results: Results, help: Help }
+  const M: Record<string, () => React.ReactNode> = { register: Register, booth: Booth, queue: Queue, enroll: Enroll, candidate: Candidate, prep: Prep, calendar: Calendar, access: Access, report: Report, track: Track, helpline: Helpline, results: Results, help: Help }
   const C = M[k]; return C ? <C /> : null
 }
 
@@ -61,6 +62,7 @@ function Booth() {
     <MapSVG />
     <div className="row" style={{ flexWrap: 'wrap' }}>{b.fac.map(f => <span key={f} className="tag ok">✓ {f}</span>)}</div>
     <div className="glass card stack" style={{ gap: 8 }}><div className="row between"><b>Queue now · {b.id}</b><b style={{ color: qColor(b.q) }}>~{b.q} min</b></div><Meter pct={Math.min(100, b.q * 2.5)} color={qColor(b.q)} /></div>
+    <BestTime />
     <div className="row"><button className="btn primary grow" onClick={() => { setNav(true); say(`📍 Opening directions to ${b.id}…`) }}><Navigation size={18} /> Navigate</button><button className="btn ghost grow" onClick={share}><Share2 size={18} /> Share</button></div>
     {nav && <div className="note"><b>{b.id} · {b.nm}</b><br />~1.2 km · about 6 min on foot. Opening maps… In production this launches turn-by-turn navigation.</div>}
     <button className="btn ghost block" onClick={() => setSearch(s => !s)}><Search size={18} /> Look up another voter</button>
@@ -79,6 +81,7 @@ function Queue() {
   return (<>
     <p className="muted">{booth.nm} · {booth.addr}</p>
     <div className="glass card stack"><div className="row between"><b>{ui('live')} · {booth.id}</b><b style={{ color: qColor(booth.q) }}>~{booth.q} min</b></div><Meter pct={Math.min(100, booth.q * 2.5)} color={qColor(booth.q)} /><div className="faint">{booth.evms - 1} of {booth.evms} EVMs active · token service on</div></div>
+    <BestTime />
     <button className="btn primary" onClick={() => { const a = booth.q + 1 + Math.floor(Math.random() * 6); setTok({ n: 1200 + a, a }) }}><Timer size={18} /> {ui('tok')}</button>
     {tok && <OkBar>{ui('tokd')} · #{tok.n} · ~{tok.a} ahead</OkBar>}
     <div className="sec">{ui('how')}</div>
@@ -89,14 +92,14 @@ function Queue() {
 
 /* ---------- 3 enroll ---------- */
 function Enroll() {
-  const { acd, me, say, tr } = useApp(); const [q, setQ] = useState(me.epic); const [app, setApp] = useState(false)
+  const { acd, me, say, tr, setJourney } = useApp(); const [q, setQ] = useState(me.epic); const [app, setApp] = useState(false)
   const v = acd.voters.find(x => x.epic.toLowerCase() === q.trim().toLowerCase()) ?? me
   return (<>
     <label className="f">{tr('Check enrolment status')} — EPIC or mobile<div className="row"><input className="inp mono" value={q} onChange={e => setQ(e.target.value)} /><button className="btn primary" onClick={() => say('Status refreshed')}>{tr('Check status')}</button></div></label>
     <OkBar>{tr('You are enrolled')}</OkBar>
     <div className="glass card"><div className="kv"><span>{v.nm}</span><span>{v.age} / {v.g}</span></div><div className="kv"><span>EPIC</span><span className="mono">{v.epic}</span></div><div className="kv"><span>Status</span><span className="tag ok">Active</span></div><div className="kv"><span>Part / Serial</span><span>{v.part} / {v.serial}</span></div></div>
     <button className="btn ghost" onClick={() => say('e-EPIC downloaded (demo).')}>⬇ {tr('Download e-EPIC')}</button>
-    <div className="row" style={{ flexWrap: 'wrap' }}>{['Form 6 (new voter)', 'Form 8 (correction)', 'Form 7 (objection)'].map(f => <button key={f} className="chip" onClick={() => say(`✓ ${f} started — you will be guided through the fields (demo).`)}>{tr(f)}</button>)}</div>
+    <div className="row" style={{ flexWrap: 'wrap' }}>{([['Form 6 (new voter)', 'f6'], ['Form 8 (correction)', 'f8'], ['Form 7 (objection)', 'f7']] as const).map(([f, k]) => <button key={f} className="chip" onClick={() => { regPreset.form = k; setJourney('register') }}>{tr(f)}</button>)}</div>
     <button className="btn ghost" onClick={() => setApp(a => !a)}><FileSearch size={18} /> {tr('Track application')}</button>
     {app && <div className="glass card stack"><b>Application status · F8-{778001 + (Number(v.serial) % 900)}</b><Timeline items={[['Submitted online', '18 Apr · 10:22 AM', true], ['BLO field verification', '20 Apr · 2:40 PM', true], ['ERO approved', '22 Apr · 11:05 AM', true], ['e-EPIC generated', 'Pending', false]]} /></div>}
   </>)
@@ -203,7 +206,7 @@ function Track() {
 /* ---------- 10 helpline ---------- */
 function Helpline() {
   const { cfg, say, setJourney, tr } = useApp(); const [dial, setDial] = useState(false)
-  const rows: [string, string, () => void][] = [['📱 Voter Helpline App', 'Open →', () => say('Opening the official portal… (demo)')], ['🌐 Voters’ Service Portal', 'Open →', () => say('Opening the official portal… (demo)')], ['🧾 Enrolment & corrections (Forms 6/7/8)', 'Go →', () => setJourney('enroll')], ['🚨 Report a violation (cVIGIL)', 'Go →', () => setJourney('report')], ['📬 Grievance status', 'Go →', () => setJourney('track')]]
+  const rows: [string, string, () => void][] = [['📱 Voter Helpline App', 'Open →', () => say('Opening the official portal… (demo)')], ['🌐 Voters’ Service Portal', 'Open →', () => say('Opening the official portal… (demo)')], ['🧾 Enrolment & corrections (Forms 6/7/8)', 'Go →', () => setJourney('register')], ['🚨 Report a violation (cVIGIL)', 'Go →', () => setJourney('report')], ['📬 Grievance status', 'Go →', () => setJourney('track')]]
   return (<>
     <p className="muted">Voter helpline & quick services</p>
     <button className="btn primary" onClick={() => setDial(true)}><Phone size={18} /> {tr('Call Voter Helpline 1950').replace('1950', cfg.helpline)}</button>{dial && <OkBar>Dialling {cfg.helpline}… (demo). Toll-free, in your language.</OkBar>}
@@ -233,13 +236,27 @@ function Help() {
   const ans = ['Carry your EPIC (Voter ID). If you don’t have it, any one of 12 approved photo IDs — Aadhaar, passport, licence, PAN and others — works.', `Polling in ${acd.name} is ${acd.pollDate}, 7:00 AM–6:00 PM. I can set a reminder.`, 'Share your EPIC or mobile and I’ll confirm your enrolment and booth instantly.', `The nearest booth (${booth.id}) is about ${booth.q} minutes right now. I can suggest a quieter slot.`]
   const [msgs, setMsgs] = useState<{ me?: boolean; t: string }[]>([{ t: `${pick({ en: 'Namaste', hi: 'नमस्ते', mr: 'नमस्कार', pa: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ' })} ${first} 🙏 — ${pick({ en: 'I’m Mitra. Ask me about your booth, documents, dates or status.', hi: 'मैं मित्र हूँ। बूथ, दस्तावेज़, तिथि या स्थिति पूछें।', mr: 'मी मित्र आहे. बूथ, कागदपत्रे किंवा स्थिती विचारा.', pa: 'ਮੈਂ ਮਿੱਤਰ ਹਾਂ। ਬੂਥ, ਦਸਤਾਵੇਜ਼ ਜਾਂ ਸਥਿਤੀ ਪੁੱਛੋ।' })}` }])
   useEffect(() => { end.current?.scrollIntoView({ behavior: 'smooth', block: 'end' }) }, [msgs])
-  const ask = (q: string, i = 3) => { setMsgs(m => [...m, { me: true, t: q }]); setTimeout(() => setMsgs(m => [...m, { t: ans[i] }]), 260) }
+  const [voice, setVoice] = useState(true); const stopRef = useRef<(() => void) | null>(null)
+  useEffect(() => () => { stopSpeaking(); stopRef.current?.() }, [])
+  const route = (q: string) => { const s = q.toLowerCase(); return /carry|document|id\b|epic|ले जा|न्याव/.test(s) ? 0 : /when|date|day|कब|कधी/.test(s) ? 1 : /name|list|enrol|नाम|यादी|सूची/.test(s) ? 2 : 3 }
+  const ask = (q: string, i = route(q)) => { setMsgs(m => [...m, { me: true, t: q }]); setTimeout(() => { setMsgs(m => [...m, { t: ans[i] }]); if (voice) speak(ans[i], 'en') }, 260) }
+  const nativeMic = canListen()
+  const toggleMic = () => {
+    if (rec) { stopRef.current?.(); return }
+    setRec(true)
+    stopRef.current = listen(lang, t => ask(t), () => { setRec(false); stopRef.current = null })
+    if (!stopRef.current) setRec(false)
+  }
   return (<>
-    <div className="glass card chat" style={{ minHeight: 220 }}>{msgs.map((m, i) => <div key={i} className={'bub ' + (m.me ? 'me' : 'bot')}>{m.t}</div>)}<div ref={end} /></div>
+    <div className="row between"><span className="faint">{canSpeak() ? 'Mitra can read replies aloud' : 'Voice playback not supported in this browser'}</span>
+      {canSpeak() && <button className="chip vtoggle" aria-pressed={voice} onClick={() => { setVoice(v => !v); stopSpeaking() }}>{voice ? <Volume2 size={15} /> : <VolumeX size={15} />}{voice ? 'Voice on' : 'Voice off'}</button>}</div>
+    <div className="glass card chat" style={{ minHeight: 220 }}>{msgs.map((m, i) => <div key={i} className={'bub ' + (m.me ? 'me' : 'bot')}>{m.t}{!m.me && canSpeak() && <button className="say" aria-label="Read aloud" onClick={() => speak(m.t, i === 0 ? lang : 'en')}><Volume2 size={14} /></button>}</div>)}<div ref={end} /></div>
     <div className="row" style={{ flexWrap: 'wrap' }}>{chips.map((c, i) => <button key={c} className="chip" onClick={() => ask(c, i)}>{c}</button>)}</div>
     <div className="row"><input className="inp" placeholder={tr('Type your question…')} value={txt} onChange={e => setTxt(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && txt.trim()) { ask(txt.trim()); setTxt('') } }} /><button className="iconbtn" aria-label="Send" onClick={() => { if (txt.trim()) { ask(txt.trim()); setTxt('') } }}><Send size={18} /></button></div>
-    <button className={'mic' + (rec ? ' rec' : '')} onPointerDown={() => setRec(true)} onPointerUp={() => { setRec(false); ask(chips[1], 1) }} onPointerLeave={() => setRec(false)}>
-      {rec ? <span className="wave"><i /><i /><i /><i /><i /></span> : <Mic size={22} />}{rec ? 'Listening…' : tr('Hold to speak')}</button>
+    {nativeMic
+      ? <button className={'mic' + (rec ? ' rec' : '')} onClick={toggleMic}>{rec ? <span className="wave"><i /><i /><i /><i /><i /></span> : <Mic size={22} />}{rec ? 'Listening… tap to stop' : 'Tap & speak'}</button>
+      : <button className={'mic' + (rec ? ' rec' : '')} onPointerDown={() => setRec(true)} onPointerUp={() => { setRec(false); ask(chips[1], 1) }} onPointerLeave={() => setRec(false)}>
+        {rec ? <span className="wave"><i /><i /><i /><i /><i /></span> : <Mic size={22} />}{rec ? 'Listening…' : tr('Hold to speak')}</button>}
   </>)
   void TILES
 }

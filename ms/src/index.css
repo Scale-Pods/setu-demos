@@ -250,3 +250,15 @@ img, svg, video { max-width: 100%; }
   .inp, .sel { font-size: 16px; } /* stops iOS zooming into fields */
   .seg button, .side button { min-height: 40px; }
 }
+
+/* ---- best-time chart ---- */
+.bt-bars { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; align-items: end; height: 118px; }
+.bt-col { display: grid; justify-items: center; align-content: end; gap: 3px; height: 100%; }
+.bt-col i { width: 100%; max-width: 20px; border-radius: 6px 6px 3px 3px; opacity: .9; }
+.bt-col.past i { opacity: .3; }
+.bt-col.best i { box-shadow: 0 0 0 2px var(--ink), 0 0 14px color-mix(in srgb, var(--ok) 70%, transparent); opacity: 1; }
+.bt-col.now small { color: var(--accent); font-weight: 800; }
+.bt-v { font-size: 10px; color: var(--ink-faint); font-variant-numeric: tabular-nums; } .bt-col small { font-size: 10.5px; color: var(--ink-faint); }
+.bt-col.best .bt-v { color: var(--ink); font-weight: 700; }
+.bub .say { display: inline-flex; margin-left: 8px; vertical-align: middle; opacity: .7; } .bub .say:hover { opacity: 1; }
+.vtoggle { display: inline-flex; align-items: center; gap: 6px; }

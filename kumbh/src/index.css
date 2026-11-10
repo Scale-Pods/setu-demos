@@ -228,3 +228,8 @@ img, svg, video { max-width: 100%; }
   .inp, .sel { font-size: 16px; } /* stops iOS zooming into fields */
   .seg button, .side button { min-height: 40px; }
 }
+
+/* ---- group map + offline ---- */
+.gmap { height: 220px; border-radius: 18px; overflow: hidden; border: 1px solid var(--glass-bd); background: linear-gradient(160deg, color-mix(in srgb, var(--info) 14%, transparent), color-mix(in srgb, var(--accent) 8%, transparent)); }
+.offbanner { position: fixed; z-index: 100; top: max(8px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 99px; font-size: 13px; font-weight: 600; background: var(--warn); color: #1a1205; box-shadow: var(--shadow); max-width: calc(100vw - 24px); }
+a.chip { text-decoration: none; color: inherit; }

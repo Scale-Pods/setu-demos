@@ -5,6 +5,7 @@ import { Platform } from './screens/Platform'
 import { Sevak } from './screens/Sevak'
 import { Provider, useApp } from './store'
 import { Tour } from './Tour'
+import { OfflineBanner } from './features'
 import { Backdrop, Toast } from './ui'
 
 function Router() {
@@ -20,5 +21,5 @@ function Router() {
 }
 
 export default function App() {
-  return (<Provider><Backdrop /><Router /><Tour /><Toast /></Provider>)
+  return (<Provider><Backdrop /><Router /><Tour /><Toast /><OfflineBanner /></Provider>)
 }

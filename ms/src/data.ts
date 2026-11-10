@@ -111,6 +111,7 @@ export const TILES: { id: string; en: string; hi: string; pa: string; mr: string
   { id: 'track', en: 'Track a complaint', hi: 'शिकायत ट्रैक', pa: 'ਸ਼ਿਕਾਇਤ ਟਰੈਕ', mr: 'तक्रार ट्रॅक' },
   { id: 'helpline', en: 'Helpline & services', hi: 'हेल्पलाइन व सेवाएँ', pa: 'ਹੈਲਪਲਾਈਨ ਤੇ ਸੇਵਾਵਾਂ', mr: 'हेल्पलाइन व सेवा' },
   { id: 'results', en: 'Results & turnout', hi: 'परिणाम व मतदान', pa: 'ਨਤੀਜੇ ਤੇ ਮਤਦਾਨ', mr: 'निकाल व मतदान' },
+  { id: 'register', en: 'Register / correct', hi: 'पंजीकरण / सुधार', pa: 'ਰਜਿਸਟਰ / ਸੋਧ', mr: 'नोंदणी / दुरुस्ती' },
   { id: 'help', en: 'Talk to Mitra', hi: 'मित्र से बात करें', pa: 'ਮਿੱਤਰ ਨਾਲ ਗੱਲ ਕਰੋ', mr: 'मित्रशी बोला' },
 ]
 export const UI: Record<string, Record<Lang, string>> = {

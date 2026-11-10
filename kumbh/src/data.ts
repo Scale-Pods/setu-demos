@@ -30,6 +30,8 @@ export const T: Record<string, Record<Lang, string>> = {
   around: { en: 'Getting around', hi: 'आवागमन', pa: 'ਆਵਾਜਾਈ' },
   services: { en: 'Nearest services', hi: 'निकटतम सेवाएँ', pa: 'ਨੇੜਲੀਆਂ ਸੇਵਾਵਾਂ' },
   snan: { en: 'Shahi Snan dates', hi: 'शाही स्नान तिथियाँ', pa: 'ਸ਼ਾਹੀ ਇਸ਼ਨਾਨ ਮਿਤੀਆਂ' },
+  group: { en: 'My group', hi: 'मेरा समूह', pa: 'ਮੇਰਾ ਗਰੁੱਪ' },
+  offline: { en: 'Offline & install', hi: 'ऑफ़लाइन व इंस्टॉल', pa: 'ਆਫ਼ਲਾਈਨ ਤੇ ਇੰਸਟਾਲ' },
   lost: { en: 'Lost & found', hi: 'खोया-पाया', pa: 'ਗੁੰਮ ਤੇ ਲੱਭਿਆ' },
   health: { en: 'Health & medical', hi: 'स्वास्थ्य व चिकित्सा', pa: 'ਸਿਹਤ ਤੇ ਡਾਕਟਰੀ' },
   access: { en: 'Accessibility help', hi: 'सुगम्यता सहायता', pa: 'ਪਹੁੰਚਯੋਗਤਾ ਮਦਦ' },

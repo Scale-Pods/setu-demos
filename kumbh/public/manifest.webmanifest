@@ -1,0 +1,25 @@
+{
+  "name": "Kumbh Mitra",
+  "short_name": "Kumbh Mitra",
+  "description": "Pilgrim companion for the Kumbh Mela — crowd-aware routes, group tracking, offline help.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07081a",
+  "theme_color": "#0a0b1e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
