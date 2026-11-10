@@ -203,8 +203,6 @@ table.bt { width: 100%; border-collapse: collapse; font-size: 14px; } .bt th { t
 .appbar { border-bottom: 0; } .appbar::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: linear-gradient(90deg, #ff9933 0 33%, #fff 33% 66%, #138808 66%); opacity: .85; }
 .appbar { position: sticky; }
 .tricolor { height: 3px; border-radius: 3px; background: linear-gradient(90deg, #ff9933 0 33%, #fff 33% 66%, #138808 66%); opacity: .9; }
-[dir='rtl'] .role .arr, [dir='rtl'] .btn svg.flip { transform: scaleX(-1); }
-:root[data-lang='ur'] { --font: 'Plus Jakarta Sans', 'Noto Nastaliq Urdu', serif; } :root[data-lang='ur'] body { line-height: 1.9; }
 .slip { overflow: hidden; padding: 0; }
 .slip .head { padding: 14px 18px; display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 30%, transparent), color-mix(in srgb, var(--accent-2) 14%, transparent)); border-bottom: 1px solid var(--glass-bd); }
 .slipbody { display: flex; gap: 16px; padding: 18px; align-items: center; } @media (max-width: 380px) { .slipbody { flex-direction: column; } }

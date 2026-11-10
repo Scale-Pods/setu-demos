@@ -1,4 +1,4 @@
-export type Lang = 'en' | 'hi' | 'ur' | 'pa' | 'mr'
+export type Lang = 'en' | 'hi' | 'pa' | 'mr'
 export type L5 = Partial<Record<Lang, string>>
 
 export interface Voter { epic: string; nm: string; nmLoc: string; age: number; g: 'M' | 'F'; part: string; serial: string; bid: string }
@@ -19,10 +19,10 @@ const V = (epic: string, nm: string, nmLoc: string, age: number, g: 'M' | 'F', p
 
 export const CONFIG: Record<string, StateCfg> = {
   up: {
-    name: 'Uttar Pradesh', nameLoc: 'उत्तर प्रदेश', ceo: 'CEO, Uttar Pradesh', helpline: '1950', accent: '#ff8a3d', accentSoft: '#fdecdf', langs: ['en', 'hi', 'ur'], electors: '15.3 cr', booths: '1,62,000',
+    name: 'Uttar Pradesh', nameLoc: 'उत्तर प्रदेश', ceo: 'CEO, Uttar Pradesh', helpline: '1950', accent: '#ff8a3d', accentSoft: '#fdecdf', langs: ['en', 'hi'], electors: '15.3 cr', booths: '1,62,000',
     turnout: [2, 10, 21, 33, 46, 54, 60, 66, 73, 81, 89, 95], wait: [4, 9, 16, 24, 30, 20, 15, 17, 22, 18, 12, 6],
     scans: [['Booth finder', 88], ['Queue', 64], ['Enrol/EPIC', 41], ['Candidate', 33], ['Access', 18], ['cVIGIL', 12], ['Helpline', 27]],
-    lang: [['Hindi', 71], ['English', 16], ['Urdu', 9], ['Other', 4]],
+    lang: [['Hindi', 75], ['English', 16], ['Other', 9]],
     acs: {
       lucknow: { name: 'Lucknow', nameLoc: 'लखनऊ', no: '173', district: 'Lucknow', pollDate: 'Phase 4 · 7 May', ro: 'Smt. R. Agarwal (RO)', totalVoters: 384210, totalBooths: 318,
         voters: [V('UPX1234567', 'Kavita Verma', 'कविता वर्मा', 41, 'F', '112', '418', 'PS-02'), V('UPX2233445', 'Imran Ali', 'इमरान अली', 33, 'M', '112', '77', 'PS-02'), V('UPX7788990', 'Rohit Srivastava', 'रोहित श्रीवास्तव', 28, 'M', '087', '204', 'PS-07'), V('UPX5566778', 'Sunita Yadav', 'सुनीता यादव', 57, 'F', '045', '511', 'PS-01')],
@@ -84,7 +84,7 @@ export const CONFIG: Record<string, StateCfg> = {
   },
 }
 
-export const LANG_LABEL: Record<Lang, string> = { en: 'EN', hi: 'हिं', ur: 'اردو', pa: 'ਪੰਜਾਬੀ', mr: 'मराठी' }
+export const LANG_LABEL: Record<Lang, string> = { en: 'EN', hi: 'हिं', pa: 'ਪੰਜਾਬੀ', mr: 'मराठी' }
 
 export const CAL: [string, string, boolean][] = [
   ['Notification issued', 'Nomination window opens', true], ['Last date of nomination', '+7 days', true], ['Scrutiny of nominations', '+8 days', true],
@@ -95,38 +95,37 @@ export const FIRST: [string, string][] = [['Check you are enrolled', 'Search you
 export const DONTS = ['Do carry a valid photo ID', 'Do reach early to avoid the queue', 'Don’t take a phone or camera inside the booth', 'Don’t photograph your vote', 'Voting is free — never pay anyone']
 export const GCATS: [string, string][] = [['Cash / gift', '💵'], ['Posters', '📋'], ['Transport', '🚐'], ['Intimidation', '⚠️'], ['Other', '❓']]
 export const GSTAT: [string, string][] = [['Reported', 'var(--info)'], ['Verified', 'var(--ok)'], ['Action taken', 'var(--accent)'], ['Closed', 'var(--ink-faint)']]
-export const UC: [string, string][] = [['Booth finder', 'Slip QR → exact station, part, timing, BLO, map.'], ['Know Your Candidate', 'Affidavit summaries — assets, cases, education.'], ['Enrolment & e-EPIC', 'Check the roll, apply (Forms 6/7/8), track, download.'], ['Queue & token', 'Live wait, queue token, EVM/VVPAT guide.'], ['Accessibility', 'Saksham requests, Braille/AVIS, home-voting (12D).'], ['cVIGIL reporting', 'Geo-tagged complaint, tracking ID, 100-min clock.'], ['Grievance tracking', 'Live status timeline from report to closure.'], ['Results & turnout', 'Provisional round-wise turnout; counting-day view.'], ['Mitra voice help', 'IVR for feature phones; regional languages.'], ['Multilingual', 'Hindi, Urdu, Punjabi, Marathi, English & more.']]
+export const UC: [string, string][] = [['Booth finder', 'Slip QR → exact station, part, timing, BLO, map.'], ['Know Your Candidate', 'Affidavit summaries — assets, cases, education.'], ['Enrolment & e-EPIC', 'Check the roll, apply (Forms 6/7/8), track, download.'], ['Queue & token', 'Live wait, queue token, EVM/VVPAT guide.'], ['Accessibility', 'Saksham requests, Braille/AVIS, home-voting (12D).'], ['cVIGIL reporting', 'Geo-tagged complaint, tracking ID, 100-min clock.'], ['Grievance tracking', 'Live status timeline from report to closure.'], ['Results & turnout', 'Provisional round-wise turnout; counting-day view.'], ['Mitra voice help', 'IVR for feature phones; regional languages.'], ['Multilingual', 'Hindi, Punjabi, Marathi, English & more.']]
 export const INTEG: [string, string, string][] = [['ECINET', 'Roll, e-EPIC, candidate affidavits', 'Config'], ['Booth App', 'Gate-side QR verification', 'Connected'], ['cVIGIL', 'Grievance routing & SLA', 'Connected'], ['Saksham', 'Accessibility requests', 'Connected'], ['Voter Helpline 1950', 'IVR fallback', 'Sandbox'], ['SMS / WhatsApp', 'Reminders & notifications', 'Connected']]
 
 /* ---- i18n: tile labels and shell strings (5 languages) ---- */
-export const TILES: { id: string; en: string; hi: string; ur: string; pa: string; mr: string }[] = [
-  { id: 'booth', en: 'Find my booth', hi: 'मेरा बूथ', ur: 'میرا بوتھ', pa: 'ਮੇਰਾ ਬੂਥ', mr: 'माझा बूथ' },
-  { id: 'queue', en: 'Queue & how to vote', hi: 'कतार व प्रक्रिया', ur: 'قطار و طریقہ', pa: 'ਕਤਾਰ ਤੇ ਤਰੀਕਾ', mr: 'रांग व प्रक्रिया' },
-  { id: 'enroll', en: 'Check enrolment', hi: 'नामांकन जाँचें', ur: 'اندراج دیکھیں', pa: 'ਨਾਮਾਂਕਣ ਵੇਖੋ', mr: 'नोंदणी तपासा' },
-  { id: 'candidate', en: 'Know your candidate', hi: 'अपना उम्मीदवार', ur: 'اپنا امیدوار', pa: 'ਆਪਣਾ ਉਮੀਦਵਾਰ', mr: 'तुमचा उमेदवार' },
-  { id: 'prep', en: 'Before you vote', hi: 'मतदान से पहले', ur: 'ووٹ سے پہلے', pa: 'ਵੋਟ ਤੋਂ ਪਹਿਲਾਂ', mr: 'मतदानापूर्वी' },
-  { id: 'calendar', en: 'Key dates', hi: 'प्रमुख तिथियाँ', ur: 'اہم تاریخیں', pa: 'ਮੁੱਖ ਤਾਰੀਖਾਂ', mr: 'महत्त्वाच्या तारखा' },
-  { id: 'access', en: 'Accessibility help', hi: 'सुगम्यता मदद', ur: 'رسائی مدد', pa: 'ਪਹੁੰਚ ਮਦਦ', mr: 'सुलभता मदत' },
-  { id: 'report', en: 'Report a violation', hi: 'उल्लंघन रिपोर्ट', ur: 'خلاف ورزی رپورٹ', pa: 'ਉਲੰਘਣਾ ਰਿਪੋਰਟ', mr: 'तक्रार नोंदवा' },
-  { id: 'track', en: 'Track a complaint', hi: 'शिकायत ट्रैक', ur: 'شکایت ٹریک', pa: 'ਸ਼ਿਕਾਇਤ ਟਰੈਕ', mr: 'तक्रार ट्रॅक' },
-  { id: 'helpline', en: 'Helpline & services', hi: 'हेल्पलाइन व सेवाएँ', ur: 'ہیلپ لائن و خدمات', pa: 'ਹੈਲਪਲਾਈਨ ਤੇ ਸੇਵਾਵਾਂ', mr: 'हेल्पलाइन व सेवा' },
-  { id: 'results', en: 'Results & turnout', hi: 'परिणाम व मतदान', ur: 'نتائج و ٹرن آؤٹ', pa: 'ਨਤੀਜੇ ਤੇ ਮਤਦਾਨ', mr: 'निकाल व मतदान' },
-  { id: 'help', en: 'Talk to Mitra', hi: 'मित्र से बात करें', ur: 'مِتر سے بات کریں', pa: 'ਮਿੱਤਰ ਨਾਲ ਗੱਲ ਕਰੋ', mr: 'मित्रशी बोला' },
+export const TILES: { id: string; en: string; hi: string; pa: string; mr: string }[] = [
+  { id: 'booth', en: 'Find my booth', hi: 'मेरा बूथ', pa: 'ਮੇਰਾ ਬੂਥ', mr: 'माझा बूथ' },
+  { id: 'queue', en: 'Queue & how to vote', hi: 'कतार व प्रक्रिया', pa: 'ਕਤਾਰ ਤੇ ਤਰੀਕਾ', mr: 'रांग व प्रक्रिया' },
+  { id: 'enroll', en: 'Check enrolment', hi: 'नामांकन जाँचें', pa: 'ਨਾਮਾਂਕਣ ਵੇਖੋ', mr: 'नोंदणी तपासा' },
+  { id: 'candidate', en: 'Know your candidate', hi: 'अपना उम्मीदवार', pa: 'ਆਪਣਾ ਉਮੀਦਵਾਰ', mr: 'तुमचा उमेदवार' },
+  { id: 'prep', en: 'Before you vote', hi: 'मतदान से पहले', pa: 'ਵੋਟ ਤੋਂ ਪਹਿਲਾਂ', mr: 'मतदानापूर्वी' },
+  { id: 'calendar', en: 'Key dates', hi: 'प्रमुख तिथियाँ', pa: 'ਮੁੱਖ ਤਾਰੀਖਾਂ', mr: 'महत्त्वाच्या तारखा' },
+  { id: 'access', en: 'Accessibility help', hi: 'सुगम्यता मदद', pa: 'ਪਹੁੰਚ ਮਦਦ', mr: 'सुलभता मदत' },
+  { id: 'report', en: 'Report a violation', hi: 'उल्लंघन रिपोर्ट', pa: 'ਉਲੰਘਣਾ ਰਿਪੋਰਟ', mr: 'तक्रार नोंदवा' },
+  { id: 'track', en: 'Track a complaint', hi: 'शिकायत ट्रैक', pa: 'ਸ਼ਿਕਾਇਤ ਟਰੈਕ', mr: 'तक्रार ट्रॅक' },
+  { id: 'helpline', en: 'Helpline & services', hi: 'हेल्पलाइन व सेवाएँ', pa: 'ਹੈਲਪਲਾਈਨ ਤੇ ਸੇਵਾਵਾਂ', mr: 'हेल्पलाइन व सेवा' },
+  { id: 'results', en: 'Results & turnout', hi: 'परिणाम व मतदान', pa: 'ਨਤੀਜੇ ਤੇ ਮਤਦਾਨ', mr: 'निकाल व मतदान' },
+  { id: 'help', en: 'Talk to Mitra', hi: 'मित्र से बात करें', pa: 'ਮਿੱਤਰ ਨਾਲ ਗੱਲ ਕਰੋ', mr: 'मित्रशी बोला' },
 ]
 export const UI: Record<string, Record<Lang, string>> = {
-  sub: { en: 'Voter Companion', hi: 'मतदाता साथी', ur: 'ووٹر ساتھی', pa: 'ਵੋਟਰ ਸਾਥੀ', mr: 'मतदार सहायक' },
-  ask: { en: 'How can we help you vote?', hi: 'मतदान में कैसे मदद करें?', ur: 'ووٹنگ میں کیسے مدد کریں؟', pa: 'ਵੋਟਿੰਗ ਵਿੱਚ ਕਿਵੇਂ ਮਦਦ ਕਰੀਏ?', mr: 'मतदानात कशी मदत करू?' },
-  hello: { en: 'Namaste', hi: 'नमस्ते', ur: 'نمستے', pa: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ', mr: 'नमस्कार' },
-  live: { en: 'Live queue', hi: 'लाइव कतार', ur: 'لائیو قطار', pa: 'ਲਾਈਵ ਕਤਾਰ', mr: 'थेट रांग' },
-  tok: { en: 'Get a queue token', hi: 'कतार टोकन लें', ur: 'ٹوکن لیں', pa: 'ਟੋਕਨ ਲਵੋ', mr: 'रांग टोकन घ्या' },
-  tokd: { en: 'Token issued', hi: 'टोकन जारी', ur: 'ٹوکن جاری', pa: 'ਟੋਕਨ ਜਾਰੀ', mr: 'टोकन दिले' },
-  how: { en: 'How voting works', hi: 'मतदान कैसे होता है', ur: 'ووٹنگ کا طریقہ', pa: 'ਵੋਟਿੰਗ ਕਿਵੇਂ', mr: 'मतदान कसे होते' },
-  askm: { en: 'Ask Mitra', hi: 'मित्र से पूछें', ur: 'مِتر سے پوچھیں', pa: 'ਮਿੱਤਰ ਤੋਂ ਪੁੱਛੋ', mr: 'मित्रला विचारा' },
+  sub: { en: 'Voter Companion', hi: 'मतदाता साथी', pa: 'ਵੋਟਰ ਸਾਥੀ', mr: 'मतदार सहायक' },
+  ask: { en: 'How can we help you vote?', hi: 'मतदान में कैसे मदद करें?', pa: 'ਵੋਟਿੰਗ ਵਿੱਚ ਕਿਵੇਂ ਮਦਦ ਕਰੀਏ?', mr: 'मतदानात कशी मदत करू?' },
+  hello: { en: 'Namaste', hi: 'नमस्ते', pa: 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ', mr: 'नमस्कार' },
+  live: { en: 'Live queue', hi: 'लाइव कतार', pa: 'ਲਾਈਵ ਕਤਾਰ', mr: 'थेट रांग' },
+  tok: { en: 'Get a queue token', hi: 'कतार टोकन लें', pa: 'ਟੋਕਨ ਲਵੋ', mr: 'रांग टोकन घ्या' },
+  tokd: { en: 'Token issued', hi: 'टोकन जारी', pa: 'ਟੋਕਨ ਜਾਰੀ', mr: 'टोकन दिले' },
+  how: { en: 'How voting works', hi: 'मतदान कैसे होता है', pa: 'ਵੋਟਿੰਗ ਕਿਵੇਂ', mr: 'मतदान कसे होते' },
+  askm: { en: 'Ask Mitra', hi: 'मित्र से पूछें', pa: 'ਮਿੱਤਰ ਤੋਂ ਪੁੱਛੋ', mr: 'मित्रला विचारा' },
 }
 export const STEPS5: Record<Lang, [string, string][]> = {
   en: [['Verify & ink', 'BLO scans your slip QR on the Booth App; finger inked.'], ['Sign register', 'Signature/thumb on Form 17A.'], ['Press on the EVM', 'Blue button next to your choice — one beep.'], ['Check the VVPAT', 'A slip shows your choice for 7 seconds, then drops in the sealed box.']],
   hi: [['सत्यापन व स्याही', 'BLO आपकी स्लिप QR स्कैन करते हैं।'], ['हस्ताक्षर', 'फॉर्म 17A पर हस्ताक्षर।'], ['EVM दबाएँ', 'पसंद के पास नीला बटन — एक बीप।'], ['VVPAT देखें', '7 सेकंड पर्ची पर पसंद।']],
-  ur: [['تصدیق و سیاہی', 'BLO آپ کی پرچی QR اسکین کرتا ہے۔'], ['دستخط', 'فارم 17A پر دستخط۔'], ['EVM دبائیں', 'اپنی پسند کے ساتھ نیلا بٹن۔'], ['VVPAT', '7 سیکنڈ پرچی پر پسند۔']],
   pa: [['ਤਸਦੀਕ ਤੇ ਸਿਆਹੀ', 'BLO ਤੁਹਾਡੀ ਪਰਚੀ QR ਸਕੈਨ ਕਰਦਾ ਹੈ।'], ['ਦਸਤਖ਼ਤ', 'ਫਾਰਮ 17A ਤੇ ਦਸਤਖ਼ਤ।'], ['EVM ਦਬਾਓ', 'ਪਸੰਦ ਕੋਲ ਨੀਲਾ ਬਟਨ।'], ['VVPAT', '7 ਸਕਿੰਟ ਪਰਚੀ ਤੇ ਪਸੰਦ।']],
   mr: [['पडताळणी व शाई', 'BLO तुमची स्लिप QR स्कॅन करतात.'], ['सही', 'फॉर्म 17A वर सही.'], ['EVM दाबा', 'पसंतीजवळ निळे बटन — एक बीप.'], ['VVPAT पाहा', '7 सेकंद स्लिपवर पसंती.']],
 }

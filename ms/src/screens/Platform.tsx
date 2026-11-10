@@ -42,7 +42,7 @@ export function Platform() {
             <button className="btn ghost sm" onClick={() => { const k = key.toLowerCase().replace(/[^a-z0-9]/g, ''); if (!k) return say('Enter a short state key, e.g. “gj”.'); const j = parse(); if (j) { CONFIG[k] = j; setState(k); say(`Added “${j.name}” (${k}) — now in every view.`) } }}>Add as new state</button>
             <button className="btn ghost sm" onClick={() => { navigator.clipboard?.writeText(json); say('Copied.') }}><Copy size={14} /> Copy</button></div></div>
         <div className="glass card stack"><h3>Config schema</h3>
-          {['name · nameLoc', 'accent · accentSoft', 'langs (en, hi, ur, pa, mr)', 'electors · booths', 'acs → voters, booths, candidates', 'turnout · wait · scans · lang'].map(x => <div className="kv" key={x}><span className="mono" style={{ fontSize: 13 }}>{x}</span></div>)}
+          {['name · nameLoc', 'accent · accentSoft', 'langs (en, hi, pa, mr)', 'electors · booths', 'acs → voters, booths, candidates', 'turnout · wait · scans · lang'].map(x => <div className="kv" key={x}><span className="mono" style={{ fontSize: 13 }}>{x}</span></div>)}
           <div className="faint">Copy the JSON, change values, set langs, then Add as new state — it appears everywhere.</div></div>
       </div>
       <div className="sec">Compliance & data</div>

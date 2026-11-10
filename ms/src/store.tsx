@@ -39,7 +39,7 @@ export function Provider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const r = document.documentElement
     r.style.setProperty('--accent', cfg.accent); r.style.setProperty('--accent-2', ACCENT2[st] ?? cfg.accent)
-    r.dataset.lang = lang; r.dir = lang === 'ur' ? 'rtl' : 'ltr'
+    r.dataset.lang = lang; r.dir = 'ltr'
   }, [cfg, st, lang])
 
   const go = useCallback((s: Screen) => { location.hash = s === 'scan' || s === 'home' ? '' : s; setScreen(s); setJourney(null); scrollTo(0, 0) }, [])
