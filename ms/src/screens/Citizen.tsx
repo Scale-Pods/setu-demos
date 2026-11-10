@@ -16,7 +16,7 @@ export function Citizen() {
   const first = (lang === 'en' ? me.nm : me.nmLoc).split(' ')[0]
   if (journey) return (<><AppBar title={tile(journey)} sub={`${me.nm} · ${acd.name}`} back={() => setJourney(null)} /><main className="screen wrap w-sm"><div className="stack"><Journey k={journey} /></div></main></>)
   return (<>
-    <AppBar title="Matdata Setu" sub={`${first} · ${acd.name}`} back={() => go('scan')} />
+    <AppBar title="MATDAAN MITRA" sub={`${first} · ${acd.name}`} back={() => go('scan')} />
     <main className="screen wrap w-sm"><div className="stack" style={{ gap: 18 }}>
       <div><h2 style={{ fontSize: 30, fontWeight: 800 }}>{ui('hello')}, {first} <span>🙏</span></h2><p className="muted">{ui('ask')}</p></div>
       <section className="glass ghatcard" data-tour="hero">
@@ -47,7 +47,7 @@ function Booth() {
   const ql = q.trim().toLowerCase()
   const hits = ql.length >= 2 ? acd.voters.filter(x => x.epic.toLowerCase().includes(ql) || x.nm.toLowerCase().includes(ql) || x.nmLoc.toLowerCase().includes(ql)) : []
   const share = async () => {
-    const txt = `My polling booth — ${b.id}, ${b.nm}, ${b.addr} • Timing 7:00 AM–6:00 PM • Voter: ${v.nm} (${v.epic}) • via Matdata Setu`
+    const txt = `My polling booth — ${b.id}, ${b.nm}, ${b.addr} • Timing 7:00 AM–6:00 PM • Voter: ${v.nm} (${v.epic}) • via Matdaan Mitra`
     try { await navigator.clipboard.writeText(txt); say('✓ Booth details copied — paste into WhatsApp or SMS') } catch { say('Could not copy automatically — long-press to copy') }
   }
   return (<>

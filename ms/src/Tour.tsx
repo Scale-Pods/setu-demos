@@ -4,7 +4,7 @@ import { useApp, type Screen } from './store'
 import type { Lang } from './data'
 
 const STEPS: { s: Screen; j?: string | null; lang?: Lang; st?: string; c: string }[] = [
-  { s: 'scan', st: 'up', c: 'It starts with a scan — the voter scans the QR on their Voter Information Slip, and Matdata Setu opens, personalised to them. No app to install.' },
+  { s: 'scan', st: 'up', c: 'It starts with a scan — the voter scans the QR on their Voter Information Slip, and Matdaan Mitra opens, personalised to them. No app to install.' },
   { s: 'citizen', lang: 'en', c: 'The Citizen app — personalised to the scanned voter (here, Kavita Verma, Lucknow). Twelve services, grouped into Plan, Vote and Help.' },
   { s: 'citizen', j: 'booth', c: 'Find my booth — her booth is already shown: station, BLO, facilities, map and live queue. Others can be looked up too.' },
   { s: 'citizen', j: 'candidate', lang: 'hi', c: 'Know your candidate, in Hindi — tap a candidate for the full affidavit: assets, liabilities and criminal cases.' },

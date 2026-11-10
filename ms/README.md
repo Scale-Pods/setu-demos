@@ -1,6 +1,6 @@
-# Matdata Setu — redesigned front-end
+# Matdaan Mitra — redesigned front-end
 
-Dark-first glassmorphism redesign of the Matdata Setu voter-assistance concept demo. Front-end only; all data is mocked.
+Dark-first glassmorphism redesign of the Matdaan Mitra voter-assistance concept demo. Front-end only; all data is mocked.
 
 ```bash
 npm install

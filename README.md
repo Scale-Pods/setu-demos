@@ -2,8 +2,8 @@
 
 Two separate demo apps, front-end only with mocked data (no backend):
 
-- **kumbh/** – Kumbh Setu
-- **ms/** – Matdata Setu
+- **kumbh/** – Kumbh Mitra
+- **ms/** – Matdaan Mitra
 
 ## Run locally
 

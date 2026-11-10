@@ -25,7 +25,7 @@ export function Pilgrim() {
   }
   return (
     <>
-      <AppBar title="Kumbh Setu" sub={`At ${mela.ghat} · ${mela.name.split(' · ')[0]}`} back={() => go('home')} />
+      <AppBar title="KUMBH MITRA" sub={`At ${mela.ghat} · ${mela.name.split(' · ')[0]}`} back={() => go('home')} />
       <main className="screen wrap w-sm">
         <div className="stack" style={{ gap: 18 }}>
           <div><h2 style={{ fontSize: 30, fontWeight: 800 }}>{t('namaste')} <span className="grad-text">🙏</span></h2><p className="muted">{t('help')}</p></div>

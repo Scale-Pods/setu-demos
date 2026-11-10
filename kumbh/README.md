@@ -1,6 +1,6 @@
-# Kumbh Setu — redesigned front-end
+# Kumbh Mitra — redesigned front-end
 
-Dark-first glassmorphism redesign of the Kumbh Setu concept demo. Front-end only: all data is mocked
+Dark-first glassmorphism redesign of the Kumbh Mitra concept demo. Front-end only: all data is mocked
 (timer-driven crowd numbers, in-memory reports/SOS, JSON mela config).
 
 ```bash

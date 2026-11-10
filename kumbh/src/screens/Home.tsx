@@ -16,8 +16,8 @@ export function Home() {
     <main className="screen wrap w-sm">
       <div className="hero">
         <div className="mark"><Logo size={40} /></div>
-        <h1><span className="grad-text">Kumbh Setu</span></h1>
-        <div className="loc">कुंभ सेतु</div>
+        <h1><span className="grad-text">KUMBH MITRA</span></h1>
+        <div className="loc">कुंभ मित्र</div>
         <div style={{ marginTop: 14 }}><span className="tag acc">Concept demo</span></div>
         <p>{t('choose')}. Pilgrims just scan any QR at the mela. Sevaks, officers and admins sign in.</p>
       </div>
@@ -52,11 +52,11 @@ export function Home() {
 
 export function Scan() {
   const { go, mela, zone, say } = useApp()
-  const enter = () => { say('Opening Kumbh Setu…'); setTimeout(() => go('citizen'), 700) }
+  const enter = () => { say('Opening Kumbh Mitra…'); setTimeout(() => go('citizen'), 700) }
   return (
     <main className="screen wrap w-sm" style={{ paddingTop: 'clamp(24px,8vh,80px)' }}>
       <div className="glass pad stack" style={{ textAlign: 'center', gap: 16 }}>
-        <div className="row" style={{ justifyContent: 'center' }}><MapPinned size={18} color="var(--accent)" /><b>You scanned a Kumbh Setu QR</b></div>
+        <div className="row" style={{ justifyContent: 'center' }}><MapPinned size={18} color="var(--accent)" /><b>You scanned a Kumbh Mitra QR</b></div>
         <div className="qrbox" data-tour="qr">
           <i className="cn a" /><i className="cn b" /><i className="cn c" /><i className="cn d" />
           <svg viewBox="0 0 21 21" width="100%" shapeRendering="crispEdges" fill="#12102e">
@@ -65,7 +65,7 @@ export function Scan() {
         </div>
         <div><div className="faint">This QR is posted at</div><h2 style={{ fontSize: 20 }}>{mela.ghat}</h2><div className="muted">{zone}</div></div>
         <span className="tag acc" style={{ justifySelf: 'center' }}><span className="livedot" /> Interactive QR — ghats, gates, help desks & poles</span>
-        <p className="muted" style={{ fontSize: 14 }}>Open Kumbh Setu for everything around you — no pass, no app to install.</p>
+        <p className="muted" style={{ fontSize: 14 }}>Open Kumbh Mitra for everything around you — no pass, no app to install.</p>
         <button className="btn primary block" onClick={enter}>Enter — I’m here now</button>
         <button className="btn ghost block" onClick={() => { say('e-Pass linked (demo)'); setTimeout(() => go('citizen'), 700) }}>I have an e-Pass / wristband</button>
         <p className="faint" style={{ fontSize: 12.5 }}>An e-Pass (pre-registered parking, stay, groups or VIP snan) is optional — it links your group for instant lost-person alerts and your bookings.</p>

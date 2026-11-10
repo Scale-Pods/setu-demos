@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useApp, type Route } from './store'
 
 const STEPS: { r: Route; v?: string | null; c: string }[] = [
-  { r: 'scan', c: 'It starts anywhere — a pilgrim scans a QR posted on a pole, gate or ghat. No app, no pass. Kumbh Setu opens knowing where they are.' },
+  { r: 'scan', c: 'It starts anywhere — a pilgrim scans a QR posted on a pole, gate or ghat. No app, no pass. Kumbh Mitra opens knowing where they are.' },
   { r: 'citizen', c: 'The Pilgrim app — built for the walk-in crowd who carry no pass. It greets by location and puts everything around them one tap away.' },
   { r: 'citizen', v: 'plan', c: 'Plan my visit — pick a calmer day, pre-register the group, check what to carry.' },
   { r: 'citizen', v: 'park', c: 'Park & Ride — live approach traffic and free spaces, so pilgrims park outside and ride in.' },

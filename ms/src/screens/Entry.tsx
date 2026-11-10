@@ -9,14 +9,14 @@ export function Scan() {
   const { go, st, ac, acd, me, tour, say } = useApp()
   const [busy, setBusy] = useState(false)
   const timer = useRef<number>(0)
-  const enter = () => { setBusy(true); say('Opening Matdata Setu…'); window.setTimeout(() => go('citizen'), 750) }
+  const enter = () => { setBusy(true); say('Opening Matdaan Mitra…'); window.setTimeout(() => go('citizen'), 750) }
   useEffect(() => { if (tour !== null) return; timer.current = window.setTimeout(enter, 5200); return () => clearTimeout(timer.current) /* eslint-disable-next-line */ }, [tour])
   const rows: [string, string][] = [['Elector', `${me.nm} · ${me.nmLoc}`], ['EPIC No.', me.epic], ['Part / Booth', `${me.part} · ${me.bid}`], ['Poll day', acd.pollDate]]
   return (
     <main className="screen wrap w-sm" style={{ paddingTop: 'clamp(20px,6vh,56px)' }}>
       <div className="row" style={{ justifyContent: 'center', marginBottom: 18 }}>
         <span className="avatar" style={{ borderRadius: 14 }}><Seal /></span>
-        <div><b style={{ fontSize: 20 }}>Matdata Setu</b><div className="faint">मतदाता सेतु</div></div>
+        <div><b style={{ fontSize: 20 }}>MATDAAN MITRA</b><div className="faint">मतदान मित्र</div></div>
       </div>
       <section className="glass slip">
         <div className="head"><span className="livedot" /> Voter Information Slip · मतदाता सूचना पर्ची</div>
@@ -26,8 +26,8 @@ export function Scan() {
         </div>
         <div className="pad stack" style={{ paddingTop: 0 }}>
           <span className="tag acc" style={{ justifySelf: 'start' }}>● Interactive QR</span>
-          <p className="muted" style={{ fontSize: 14 }}>Scanning the QR on your slip opens Matdata Setu — no app to install.</p>
-          <button className="btn primary block" disabled={busy} onClick={() => { clearTimeout(timer.current); enter() }}><ScanLine size={18} /> {busy ? '✓ Opening Matdata Setu…' : 'Tap to scan'}</button>
+          <p className="muted" style={{ fontSize: 14 }}>Scanning the QR on your slip opens Matdaan Mitra — no app to install.</p>
+          <button className="btn primary block" disabled={busy} onClick={() => { clearTimeout(timer.current); enter() }}><ScanLine size={18} /> {busy ? '✓ Opening Matdaan Mitra…' : 'Tap to scan'}</button>
           <button className="faint" style={{ textDecoration: 'underline' }} onClick={() => { clearTimeout(timer.current); go('home') }}>Election staff or admin? Sign in →</button>
         </div>
       </section>
@@ -51,8 +51,8 @@ export function Home() {
     <main className="screen wrap w-sm">
       <div className="hero">
         <div className="mark"><Seal size={40} /></div>
-        <h1><span className="grad-text">Matdata Setu</span></h1>
-        <div className="loc">मतदाता सेतु</div>
+        <h1><span className="grad-text">MATDAAN MITRA</span></h1>
+        <div className="loc">मतदान मित्र</div>
         <div style={{ marginTop: 14 }}><span className="tag acc">Concept demo</span></div>
         <div className="tricolor" style={{ width: 90, margin: '16px auto 0' }} />
         <p>Choose how to enter. Citizens scan their Voter Slip. Officials and admins sign in.</p>
